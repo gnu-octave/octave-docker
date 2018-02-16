@@ -1,0 +1,936 @@
+diff --git a/build-aux/mk-opts.pl b/build-aux/mk-opts.pl
+--- a/build-aux/mk-opts.pl
++++ b/build-aux/mk-opts.pl
+@@ -373,7 +373,7 @@
+ #define octave_${CLASS_NAME}_h 1
+ 
+ #include <cfloat>
+-#include <cmath>
++#include <math.h>
+ 
+ $INCLUDE
+ 
+diff --git a/libgnu/math.in.h b/libgnu/math.in.h
+--- a/libgnu/math.in.h
++++ b/libgnu/math.in.h
+@@ -2204,7 +2204,7 @@
+ #endif
+ 
+ 
+-#if @GNULIB_SIGNBIT@
++#if 0
+ # if @REPLACE_SIGNBIT_USING_GCC@
+ #  undef signbit
+    /* GCC 4.0 and newer provides three built-ins for signbit.  */
+diff --git a/libinterp/corefcn/defaults.cc b/libinterp/corefcn/defaults.cc
+--- a/libinterp/corefcn/defaults.cc
++++ b/libinterp/corefcn/defaults.cc
+@@ -24,7 +24,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <algorithm>
+ #include <iostream>
+diff --git a/libinterp/corefcn/dirfns.cc b/libinterp/corefcn/dirfns.cc
+--- a/libinterp/corefcn/dirfns.cc
++++ b/libinterp/corefcn/dirfns.cc
+@@ -27,7 +27,7 @@
+ #include <cerrno>
+ #include <cstdio>
+ #include <cstddef>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <sstream>
+diff --git a/libinterp/corefcn/display.cc b/libinterp/corefcn/display.cc
+--- a/libinterp/corefcn/display.cc
++++ b/libinterp/corefcn/display.cc
+@@ -24,7 +24,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #if defined (OCTAVE_USE_WINDOWS_API)
+ #include <windows.h>
+diff --git a/libinterp/corefcn/graphics.cc b/libinterp/corefcn/graphics.cc
+--- a/libinterp/corefcn/graphics.cc
++++ b/libinterp/corefcn/graphics.cc
+@@ -26,7 +26,7 @@
+ 
+ #include <cctype>
+ #include <cfloat>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <ctime>
+ 
+ #include <algorithm>
+diff --git a/libinterp/corefcn/help.cc b/libinterp/corefcn/help.cc
+--- a/libinterp/corefcn/help.cc
++++ b/libinterp/corefcn/help.cc
+@@ -24,7 +24,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <algorithm>
+diff --git a/libinterp/corefcn/input.cc b/libinterp/corefcn/input.cc
+--- a/libinterp/corefcn/input.cc
++++ b/libinterp/corefcn/input.cc
+@@ -27,7 +27,7 @@
+ #endif
+ 
+ #include <cstdio>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ #include <cassert>
+ 
+diff --git a/libinterp/corefcn/mex.cc b/libinterp/corefcn/mex.cc
+--- a/libinterp/corefcn/mex.cc
++++ b/libinterp/corefcn/mex.cc
+@@ -25,7 +25,7 @@
+ #include <cfloat>
+ #include <csetjmp>
+ #include <cstdarg>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ #include <cctype>
+ 
+diff --git a/libinterp/corefcn/mexproto.h b/libinterp/corefcn/mexproto.h
+--- a/libinterp/corefcn/mexproto.h
++++ b/libinterp/corefcn/mexproto.h
+@@ -49,7 +49,7 @@
+ #define MEXPROTO_H
+ 
+ #if defined (__cplusplus)
+-#include <cstdlib>
++#include <stdlib.h>
+ extern "C" {
+ #else
+ #include <stdlib.h>
+diff --git a/libinterp/corefcn/oct-hist.cc b/libinterp/corefcn/oct-hist.cc
+--- a/libinterp/corefcn/oct-hist.cc
++++ b/libinterp/corefcn/oct-hist.cc
+@@ -35,7 +35,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <string>
+diff --git a/libinterp/corefcn/pr-output.cc b/libinterp/corefcn/pr-output.cc
+--- a/libinterp/corefcn/pr-output.cc
++++ b/libinterp/corefcn/pr-output.cc
+@@ -3133,6 +3133,14 @@
+ PRINT_INT_SCALAR_INTERNAL (uint32_t)
+ PRINT_INT_SCALAR_INTERNAL (int64_t)
+ PRINT_INT_SCALAR_INTERNAL (uint64_t)
++ 
++inline unsigned int abs (unsigned int x) { return x; }
++inline long unsigned int abs (long unsigned int x) { return x; }
++inline long long unsigned int abs (long long unsigned int x) { return x; }
++inline short unsigned int abs (short unsigned int x) { return x; }
++inline unsigned char abs (unsigned char x) { return x; }
++inline signed char abs (signed char x) { return abs((int)x); }
++inline short int abs (short int x) { return abs((int)x); }
+ 
+ template <class T>
+ /* static */ inline void
+diff --git a/libinterp/corefcn/sighandlers.cc b/libinterp/corefcn/sighandlers.cc
+--- a/libinterp/corefcn/sighandlers.cc
++++ b/libinterp/corefcn/sighandlers.cc
+@@ -24,7 +24,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iostream>
+ #include <new>
+diff --git a/libinterp/corefcn/sparse.cc b/libinterp/corefcn/sparse.cc
+--- a/libinterp/corefcn/sparse.cc
++++ b/libinterp/corefcn/sparse.cc
+@@ -26,7 +26,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <string>
+ 
+ #include "variables.h"
+diff --git a/libinterp/corefcn/sysdep.cc b/libinterp/corefcn/sysdep.cc
+--- a/libinterp/corefcn/sysdep.cc
++++ b/libinterp/corefcn/sysdep.cc
+@@ -27,7 +27,7 @@
+ #include <cfloat>
+ #include <cstddef>
+ #include <cstdio>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <iostream>
+diff --git a/libinterp/corefcn/toplev.cc b/libinterp/corefcn/toplev.cc
+--- a/libinterp/corefcn/toplev.cc
++++ b/libinterp/corefcn/toplev.cc
+@@ -26,7 +26,7 @@
+ 
+ #include <cassert>
+ #include <cerrno>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ #include <new>
+ 
+diff --git a/libinterp/corefcn/xnorm.cc b/libinterp/corefcn/xnorm.cc
+--- a/libinterp/corefcn/xnorm.cc
++++ b/libinterp/corefcn/xnorm.cc
+@@ -28,7 +28,7 @@
+ 
+ #include <cassert>
+ #include <cfloat>
+-#include <cmath>
++#include <math.h>
+ 
+ #include "oct-norm.h"
+ 
+diff --git a/libinterp/dldfcn/amd.cc b/libinterp/dldfcn/amd.cc
+--- a/libinterp/dldfcn/amd.cc
++++ b/libinterp/dldfcn/amd.cc
+@@ -27,7 +27,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <string>
+ #include <vector>
+diff --git a/libinterp/dldfcn/ccolamd.cc b/libinterp/dldfcn/ccolamd.cc
+--- a/libinterp/dldfcn/ccolamd.cc
++++ b/libinterp/dldfcn/ccolamd.cc
+@@ -27,7 +27,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <string>
+ #include <vector>
+diff --git a/libinterp/dldfcn/colamd.cc b/libinterp/dldfcn/colamd.cc
+--- a/libinterp/dldfcn/colamd.cc
++++ b/libinterp/dldfcn/colamd.cc
+@@ -28,7 +28,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <string>
+ #include <vector>
+diff --git a/libinterp/octave.cc b/libinterp/octave.cc
+--- a/libinterp/octave.cc
++++ b/libinterp/octave.cc
+@@ -28,7 +28,7 @@
+ 
+ #include <cassert>
+ #include <clocale>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ #include <ctime>
+ 
+diff --git a/libinterp/octave-value/ov-base-diag.h b/libinterp/octave-value/ov-base-diag.h
+--- a/libinterp/octave-value/ov-base-diag.h
++++ b/libinterp/octave-value/ov-base-diag.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_base_diag_h)
+ #define octave_ov_base_diag_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-base.h b/libinterp/octave-value/ov-base.h
+--- a/libinterp/octave-value/ov-base.h
++++ b/libinterp/octave-value/ov-base.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_base_h)
+ #define octave_ov_base_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <list>
+diff --git a/libinterp/octave-value/ov-base-int.h b/libinterp/octave-value/ov-base-int.h
+--- a/libinterp/octave-value/ov-base-int.h
++++ b/libinterp/octave-value/ov-base-int.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_base_int_h)
+ #define octave_ov_base_int_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-base-mat.h b/libinterp/octave-value/ov-base-mat.h
+--- a/libinterp/octave-value/ov-base-mat.h
++++ b/libinterp/octave-value/ov-base-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_base_mat_h)
+ #define octave_ov_base_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-base-scalar.h b/libinterp/octave-value/ov-base-scalar.h
+--- a/libinterp/octave-value/ov-base-scalar.h
++++ b/libinterp/octave-value/ov-base-scalar.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_base_scalar_h)
+ #define octave_ov_base_scalar_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-base-sparse.h b/libinterp/octave-value/ov-base-sparse.h
+--- a/libinterp/octave-value/ov-base-sparse.h
++++ b/libinterp/octave-value/ov-base-sparse.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_base_sparse_h)
+ #define octave_ov_base_sparse_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-bool.h b/libinterp/octave-value/ov-bool.h
+--- a/libinterp/octave-value/ov-bool.h
++++ b/libinterp/octave-value/ov-bool.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_bool_h)
+ #define octave_ov_bool_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-bool-mat.h b/libinterp/octave-value/ov-bool-mat.h
+--- a/libinterp/octave-value/ov-bool-mat.h
++++ b/libinterp/octave-value/ov-bool-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_bool_mat_h)
+ #define octave_ov_bool_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-bool-sparse.h b/libinterp/octave-value/ov-bool-sparse.h
+--- a/libinterp/octave-value/ov-bool-sparse.h
++++ b/libinterp/octave-value/ov-bool-sparse.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_bool_sparse_h)
+ #define octave_ov_bool_sparse_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-cell.h b/libinterp/octave-value/ov-cell.h
+--- a/libinterp/octave-value/ov-cell.h
++++ b/libinterp/octave-value/ov-cell.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_cell_h)
+ #define octave_ov_cell_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-ch-mat.h b/libinterp/octave-value/ov-ch-mat.h
+--- a/libinterp/octave-value/ov-ch-mat.h
++++ b/libinterp/octave-value/ov-ch-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_ch_mat_h)
+ #define octave_ov_ch_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-class.h b/libinterp/octave-value/ov-class.h
+--- a/libinterp/octave-value/ov-class.h
++++ b/libinterp/octave-value/ov-class.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_class_h)
+ #define octave_ov_class_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-colon.h b/libinterp/octave-value/ov-colon.h
+--- a/libinterp/octave-value/ov-colon.h
++++ b/libinterp/octave-value/ov-colon.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_colon_h)
+ #define octave_ov_colon_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-complex.h b/libinterp/octave-value/ov-complex.h
+--- a/libinterp/octave-value/ov-complex.h
++++ b/libinterp/octave-value/ov-complex.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_complex_h)
+ #define octave_ov_complex_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-cs-list.h b/libinterp/octave-value/ov-cs-list.h
+--- a/libinterp/octave-value/ov-cs-list.h
++++ b/libinterp/octave-value/ov-cs-list.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_cs_list_h)
+ #define octave_ov_cs_list_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-cx-mat.h b/libinterp/octave-value/ov-cx-mat.h
+--- a/libinterp/octave-value/ov-cx-mat.h
++++ b/libinterp/octave-value/ov-cx-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_cx_mat_h)
+ #define octave_ov_cx_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-cx-sparse.h b/libinterp/octave-value/ov-cx-sparse.h
+--- a/libinterp/octave-value/ov-cx-sparse.h
++++ b/libinterp/octave-value/ov-cx-sparse.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_cx_sparse_h)
+ #define octave_ov_cx_sparse_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-float.h b/libinterp/octave-value/ov-float.h
+--- a/libinterp/octave-value/ov-float.h
++++ b/libinterp/octave-value/ov-float.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_float_h)
+ #define octave_ov_float_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-flt-complex.h b/libinterp/octave-value/ov-flt-complex.h
+--- a/libinterp/octave-value/ov-flt-complex.h
++++ b/libinterp/octave-value/ov-flt-complex.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_flt_complex_h)
+ #define octave_ov_flt_complex_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-flt-cx-mat.h b/libinterp/octave-value/ov-flt-cx-mat.h
+--- a/libinterp/octave-value/ov-flt-cx-mat.h
++++ b/libinterp/octave-value/ov-flt-cx-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_flt_cx_mat_h)
+ #define octave_ov_flt_cx_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-flt-re-mat.h b/libinterp/octave-value/ov-flt-re-mat.h
+--- a/libinterp/octave-value/ov-flt-re-mat.h
++++ b/libinterp/octave-value/ov-flt-re-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_flt_re_mat_h)
+ #define octave_ov_flt_re_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov.h b/libinterp/octave-value/ov.h
+--- a/libinterp/octave-value/ov.h
++++ b/libinterp/octave-value/ov.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_h)
+ #define octave_ov_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-intx.h b/libinterp/octave-value/ov-intx.h
+--- a/libinterp/octave-value/ov-intx.h
++++ b/libinterp/octave-value/ov-intx.h
+@@ -21,7 +21,7 @@
+ 
+ */
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-range.h b/libinterp/octave-value/ov-range.h
+--- a/libinterp/octave-value/ov-range.h
++++ b/libinterp/octave-value/ov-range.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_range_h)
+ #define octave_ov_range_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-re-mat.h b/libinterp/octave-value/ov-re-mat.h
+--- a/libinterp/octave-value/ov-re-mat.h
++++ b/libinterp/octave-value/ov-re-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_re_mat_h)
+ #define octave_ov_re_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-re-sparse.h b/libinterp/octave-value/ov-re-sparse.h
+--- a/libinterp/octave-value/ov-re-sparse.h
++++ b/libinterp/octave-value/ov-re-sparse.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_re_sparse_h)
+ #define octave_ov_re_sparse_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-scalar.h b/libinterp/octave-value/ov-scalar.h
+--- a/libinterp/octave-value/ov-scalar.h
++++ b/libinterp/octave-value/ov-scalar.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_scalar_h)
+ #define octave_ov_scalar_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-str-mat.h b/libinterp/octave-value/ov-str-mat.h
+--- a/libinterp/octave-value/ov-str-mat.h
++++ b/libinterp/octave-value/ov-str-mat.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_ov_str_mat_h)
+ #define octave_ov_str_mat_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/octave-value/ov-struct.h b/libinterp/octave-value/ov-struct.h
+--- a/libinterp/octave-value/ov-struct.h
++++ b/libinterp/octave-value/ov-struct.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_ov_struct_h)
+ #define octave_ov_struct_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iosfwd>
+ #include <string>
+diff --git a/libinterp/parse-tree/oct-parse.cc b/libinterp/parse-tree/oct-parse.cc
+--- a/libinterp/parse-tree/oct-parse.cc
++++ b/libinterp/parse-tree/oct-parse.cc
+@@ -84,7 +84,7 @@
+ 
+ #include <cassert>
+ #include <cstdio>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iostream>
+ #include <map>
+diff --git a/liboctave/array/Array3.h b/liboctave/array/Array3.h
+--- a/liboctave/array/Array3.h
++++ b/liboctave/array/Array3.h
+@@ -25,7 +25,7 @@
+ #define octave_Array3_h 1
+ 
+ #include <cassert>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include "Array.h"
+ #include "lo-error.h"
+diff --git a/liboctave/array/DiagArray2.h b/liboctave/array/DiagArray2.h
+--- a/liboctave/array/DiagArray2.h
++++ b/liboctave/array/DiagArray2.h
+@@ -27,7 +27,7 @@
+ #define octave_DiagArray2_h 1
+ 
+ #include <cassert>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include "Array.h"
+ 
+diff --git a/liboctave/array/idx-vector.cc b/liboctave/array/idx-vector.cc
+--- a/liboctave/array/idx-vector.cc
++++ b/liboctave/array/idx-vector.cc
+@@ -26,7 +26,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iostream>
+ 
+diff --git a/liboctave/cruft/Faddeeva/Faddeeva.cc b/liboctave/cruft/Faddeeva/Faddeeva.cc
+--- a/liboctave/cruft/Faddeeva/Faddeeva.cc
++++ b/liboctave/cruft/Faddeeva/Faddeeva.cc
+@@ -159,7 +159,7 @@
+ #  include "Faddeeva.hh"
+ 
+ #  include <cfloat>
+-#  include <cmath>
++#  include <math.h>
+ #  include <limits>
+ using namespace std;
+ 
+diff --git a/liboctave/numeric/DET.h b/liboctave/numeric/DET.h
+--- a/liboctave/numeric/DET.h
++++ b/liboctave/numeric/DET.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_DET_h)
+ #define octave_DET_h 1
+ 
+-#include <cmath>
++#include <math.h>
+ #include "oct-cmplx.h"
+ #include "lo-mappers.h"
+ 
+diff --git a/liboctave/numeric/eigs-base.cc b/liboctave/numeric/eigs-base.cc
+--- a/liboctave/numeric/eigs-base.cc
++++ b/liboctave/numeric/eigs-base.cc
+@@ -25,7 +25,7 @@
+ #endif
+ 
+ #include <cfloat>
+-#include <cmath>
++#include <math.h>
+ #include <vector>
+ #include <iostream>
+ 
+diff --git a/liboctave/numeric/oct-norm.cc b/liboctave/numeric/oct-norm.cc
+--- a/liboctave/numeric/oct-norm.cc
++++ b/liboctave/numeric/oct-norm.cc
+@@ -28,7 +28,7 @@
+ 
+ #include <cassert>
+ #include <cfloat>
+-#include <cmath>
++#include <math.h>
+ 
+ #include <iostream>
+ #include <vector>
+diff --git a/liboctave/operators/mx-inlines.cc b/liboctave/operators/mx-inlines.cc
+--- a/liboctave/operators/mx-inlines.cc
++++ b/liboctave/operators/mx-inlines.cc
+@@ -26,7 +26,7 @@
+ #define octave_mx_inlines_h 1
+ 
+ #include <cstddef>
+-#include <cmath>
++#include <math.h>
+ #include <memory>
+ 
+ #include "quit.h"
+diff --git a/liboctave/system/dir-ops.cc b/liboctave/system/dir-ops.cc
+--- a/liboctave/system/dir-ops.cc
++++ b/liboctave/system/dir-ops.cc
+@@ -25,7 +25,7 @@
+ #endif
+ 
+ #include <cerrno>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <list>
+diff --git a/liboctave/system/file-ops.cc b/liboctave/system/file-ops.cc
+--- a/liboctave/system/file-ops.cc
++++ b/liboctave/system/file-ops.cc
+@@ -26,7 +26,7 @@
+ 
+ #include <cerrno>
+ #include <cstdio>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <iostream>
+diff --git a/liboctave/system/oct-env.cc b/liboctave/system/oct-env.cc
+--- a/liboctave/system/oct-env.cc
++++ b/liboctave/system/oct-env.cc
+@@ -41,7 +41,7 @@
+ #endif
+ 
+ #include <cctype>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <string>
+diff --git a/liboctave/system/oct-syscalls.cc b/liboctave/system/oct-syscalls.cc
+--- a/liboctave/system/oct-syscalls.cc
++++ b/liboctave/system/oct-syscalls.cc
+@@ -25,7 +25,7 @@
+ #endif
+ 
+ #include <cerrno>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <string.h>
+ 
+diff --git a/liboctave/util/base-list.h b/liboctave/util/base-list.h
+--- a/liboctave/util/base-list.h
++++ b/liboctave/util/base-list.h
+@@ -23,7 +23,7 @@
+ #if !defined (octave_base_list_h)
+ #define octave_base_list_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <list>
+ 
+diff --git a/liboctave/util/cmd-edit.cc b/liboctave/util/cmd-edit.cc
+--- a/liboctave/util/cmd-edit.cc
++++ b/liboctave/util/cmd-edit.cc
+@@ -24,7 +24,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <string>
+@@ -57,7 +57,7 @@
+ #if defined (USE_READLINE)
+ 
+ #include <cstdio>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include "oct-rl-edit.h"
+ 
+diff --git a/liboctave/util/cmd-hist.cc b/liboctave/util/cmd-hist.cc
+--- a/liboctave/util/cmd-hist.cc
++++ b/liboctave/util/cmd-hist.cc
+@@ -41,7 +41,7 @@
+ 
+ #if defined (USE_READLINE)
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <sys/types.h>
+ #include <unistd.h>
+diff --git a/liboctave/util/data-conv.cc b/liboctave/util/data-conv.cc
+--- a/liboctave/util/data-conv.cc
++++ b/liboctave/util/data-conv.cc
+@@ -25,7 +25,7 @@
+ #endif
+ 
+ #include <cctype>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <iostream>
+ #include <limits>
+diff --git a/liboctave/util/kpse.cc b/liboctave/util/kpse.cc
+--- a/liboctave/util/kpse.cc
++++ b/liboctave/util/kpse.cc
+@@ -132,7 +132,7 @@
+    NULL being defined multiple times.  */
+ #include <cstdio>
+ #include <cstdarg>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cerrno>
+ #include <cassert>
+ 
+diff --git a/liboctave/util/lo-ieee.cc b/liboctave/util/lo-ieee.cc
+--- a/liboctave/util/lo-ieee.cc
++++ b/liboctave/util/lo-ieee.cc
+@@ -24,7 +24,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <limits>
+ 
+diff --git a/liboctave/util/lo-math.h b/liboctave/util/lo-math.h
+--- a/liboctave/util/lo-math.h
++++ b/liboctave/util/lo-math.h
+@@ -24,7 +24,7 @@
+ #define octave_lo_math_h 1
+ 
+ #if defined (__cplusplus)
+-#include <cmath>
++#include <math.h>
+ // if #undef log2 is missing in cmath, undef it here
+ #if defined (log2)
+ #undef log2
+diff --git a/liboctave/util/lo-utils.cc b/liboctave/util/lo-utils.cc
+--- a/liboctave/util/lo-utils.cc
++++ b/liboctave/util/lo-utils.cc
+@@ -26,7 +26,7 @@
+ #endif
+ 
+ #include <cctype>
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstdio>
+ #include <cstring>
+ #include <cfloat>
+diff --git a/liboctave/util/oct-inttypes.h b/liboctave/util/oct-inttypes.h
+--- a/liboctave/util/oct-inttypes.h
++++ b/liboctave/util/oct-inttypes.h
+@@ -24,7 +24,7 @@
+ #if !defined (octave_oct_inttypes_h)
+ #define octave_oct_inttypes_h 1
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <limits>
+ #include <iosfwd>
+diff --git a/liboctave/util/pathsearch.cc b/liboctave/util/pathsearch.cc
+--- a/liboctave/util/pathsearch.cc
++++ b/liboctave/util/pathsearch.cc
+@@ -24,7 +24,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <string>
+ 
+diff --git a/src/main.in.cc b/src/main.in.cc
+--- a/src/main.in.cc
++++ b/src/main.in.cc
+@@ -32,7 +32,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ #include <cstring>
+ 
+ #include <algorithm>
+@@ -60,7 +60,7 @@
+ 
+ #include "shared-fcns.h"
+ 
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #if defined (OCTAVE_USE_WINDOWS_API)
+ #include <windows.h>
+diff --git a/src/mkoctfile.in.cc b/src/mkoctfile.in.cc
+--- a/src/mkoctfile.in.cc
++++ b/src/mkoctfile.in.cc
+@@ -33,7 +33,7 @@
+ #include <iostream>
+ #include <fstream>
+ #include <vector>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #include <unistd.h>
+ 
+diff --git a/src/octave-config.in.cc b/src/octave-config.in.cc
+--- a/src/octave-config.in.cc
++++ b/src/octave-config.in.cc
+@@ -29,7 +29,7 @@
+ #include <map>
+ #include <iostream>
+ #include <algorithm>
+-#include <cstdlib>
++#include <stdlib.h>
+ 
+ #ifndef OCTAVE_PREFIX
+ #define OCTAVE_PREFIX %OCTAVE_PREFIX%

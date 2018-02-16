@@ -1,0 +1,7 @@
+This Dockerfile build various older Octave releases (3.4.3 | 3.6.4 | 3.8.2 | 4.0.3)
+with gperf to allow runtime profiling. Only the CLI version is built with core functionality.
+
+No java, qt, fftw3, fltk, amd, camd, colamd, ccolamd, cholmod, docs
+
+# patches to allow builds on stretch from from Mike:
+# hg clone https://bitbucket.org/snippets/mtmiller/XeEyAj/octave-legacy-patches-for-gcc-6
